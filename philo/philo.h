@@ -41,10 +41,12 @@ typedef enum e_opcode
 	DETACH
 }	t_opcode;
 
+typedef pthread_mutex_t t_mtx;
+
 typedef struct s_fork
 {
 	int		fork_id;
-	pthread_mutex_t		fork;
+	t_mtx		fork;
 }	t_fork;
 
 typedef struct s_philo
@@ -66,8 +68,10 @@ typedef struct s_table
 	long		time_to_die;
 	long		time_to_sleep;
 	long		nbr_limit_meals;
-	long		start_simulation;
-	long		end_simulation;
+	bool		start_simulation;
+	bool		end_simulation;
+	bool		all_threads_ready;
+	t_mtx		*table_mutex;
 	t_fork		*forks;
 	t_philo		*philos;
 }	t_table;
@@ -80,6 +84,20 @@ void	parse_input(t_table *table, char **av);
 
 //safe_function.c
 void	*safe_malloc(size_t bytes);
-void	safe_mutex_handle(pthread_mutex_t *mutex, t_opcode opcode);
+void	safe_mutex_handle(t_mtx *mutex, t_opcode opcode);
+void safe_thread_handle(pthread_t *thread, void *(*foo)(void *), void *data, t_opcode opcode);
+
+//dinner.c
+void dinner_start(t_table *table);
+
+//getters_setters.c
+void set_bool(t_mtx *mutex, bool *dest, bool *value);
+bool get_bool(t_mtx *mutex, bool *value);
+void set_long(t_mtx *mutex, long *dest, long value);
+long get_long(t_mtx *mutex, long *value);
+bool simulation_finished(t_table *table);
+
+//synchro_utils.c
+void wait_all_threads(t_table *table);
 
 #endif
