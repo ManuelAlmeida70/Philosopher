@@ -42,12 +42,28 @@ typedef enum e_opcode
 }	t_opcode;
 
 typedef pthread_mutex_t t_mtx;
+typedef struct s_philo t_philo;
 
 typedef struct s_fork
 {
 	int		fork_id;
 	t_mtx		fork;
 }	t_fork;
+
+typedef struct s_table
+{
+	long		philo_nb;
+	long		time_to_eat;
+	long		time_to_die;
+	long		time_to_sleep;
+	long		nbr_limit_meals;
+	bool		start_simulation;
+	bool		end_simulation;
+	bool		all_threads_ready;
+	t_mtx		table_mutex;
+	t_fork		*forks;
+	t_philo		*philos;
+}	t_table;
 
 typedef struct s_philo
 {
@@ -60,21 +76,6 @@ typedef struct s_philo
 	pthread_t	thread_id;
 	t_table		*table;
 }	t_philo;
-
-typedef struct s_table
-{
-	long		philo_nb;
-	long		time_to_eat;
-	long		time_to_die;
-	long		time_to_sleep;
-	long		nbr_limit_meals;
-	bool		start_simulation;
-	bool		end_simulation;
-	bool		all_threads_ready;
-	t_mtx		*table_mutex;
-	t_fork		*forks;
-	t_philo		*philos;
-}	t_table;
 
 //utils.c
 void	error_exit(const char *error);
@@ -91,7 +92,7 @@ void safe_thread_handle(pthread_t *thread, void *(*foo)(void *), void *data, t_o
 void dinner_start(t_table *table);
 
 //getters_setters.c
-void set_bool(t_mtx *mutex, bool *dest, bool *value);
+void set_bool(t_mtx *mutex, bool *dest, bool value);
 bool get_bool(t_mtx *mutex, bool *value);
 void set_long(t_mtx *mutex, long *dest, long value);
 long get_long(t_mtx *mutex, long *value);
@@ -99,5 +100,8 @@ bool simulation_finished(t_table *table);
 
 //synchro_utils.c
 void wait_all_threads(t_table *table);
+//init.c
+void	data_init(t_table *table);
+void clean(t_table *table);
 
 #endif

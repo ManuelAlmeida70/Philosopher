@@ -54,7 +54,7 @@ void	safe_mutex_handle(t_mtx *mutex, t_opcode opcode)
 		error_exit("Wrong opcode for mutex handle");
 }
 
-static void handle_thread_error(int status, t_opcode *e_opcode)
+static void handle_thread_error(int status, t_opcode e_opcode)
 {
 	if (status == 0)
 		return ;

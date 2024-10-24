@@ -35,7 +35,7 @@ void set_long(t_mtx *mutex, long *dest, long value)
     *dest = value;
 }
 
-void get_long(t_mtx *mutex, long *value)
+long get_long(t_mtx *mutex, long *value)
 {
     long re;
 
@@ -46,5 +46,5 @@ void get_long(t_mtx *mutex, long *value)
 
 bool simulation_fineshed(t_table *table)
 {
-    return (get_bool(table->table_mutex, &table->end_simulation));
+    return (get_bool(&table->table_mutex, &table->end_simulation));
 }
