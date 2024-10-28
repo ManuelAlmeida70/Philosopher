@@ -51,6 +51,7 @@ void	data_init(t_table *table)
 	table->end_simulation = false;
 	table->all_threads_ready = false;
 	safe_mutex_handle(&table->table_mutex, INIT);
+	safe_mutex_handle(&table->write_mutex, INIT);
 	table->philos = safe_malloc(sizeof(t_philo) * table->philo_nb);
 	table->forks = safe_malloc(sizeof(sizeof(t_fork) * table->philo_nb));
 	while (++i < table->philo_nb)

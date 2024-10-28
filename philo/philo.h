@@ -68,6 +68,7 @@ typedef struct s_table
 	bool		end_simulation;
 	bool		all_threads_ready;
 	t_mtx		table_mutex;
+	t_mtx 		write_mutex;
 	t_fork		*forks;
 	t_philo		*philos;
 }	t_table;
