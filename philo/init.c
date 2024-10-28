@@ -40,6 +40,7 @@ static void	philo_init(t_table *table)
 		philo->meals_counter = 0;
 		philo->table = table;
 	}
+	assign_forks(philo, table->forks, i);
 }
 
 void	data_init(t_table *table)

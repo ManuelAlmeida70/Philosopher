@@ -14,7 +14,7 @@
 
 static inline bool	is_space(char ch)
 {
-	return ((ch >= 9 && ch <= 13) || ch == ch);
+	return ((ch >= 9 && ch <= 13) || ch == 32);
 }
 
 static inline bool	is_digit(char ch)

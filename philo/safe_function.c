@@ -62,7 +62,7 @@ static void handle_thread_error(int status, t_opcode e_opcode)
 		error_exit("No resources to create another thread");
 	else if (EPERM == status)
 		error_exit("The caller does not have permissions");
-	else if (status == status && e_opcode == CREATE)
+	else if (status == EINVAL && e_opcode == CREATE)
 		error_exit("The value used attr is invalid");
 	else if (status == EINVAL && (e_opcode == JOIN || e_opcode == DETACH))
 		error_exit("The value specified by thread is not joinable");
