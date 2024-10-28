@@ -30,6 +30,9 @@
 # define CYAN "\033[1;36m"
 # define WHITE "\033[1;37m"
 
+typedef pthread_mutex_t t_mtx;
+typedef struct s_philo t_philo;
+
 typedef enum e_opcode
 {
 	LOCK,
@@ -41,8 +44,12 @@ typedef enum e_opcode
 	DETACH
 }	t_opcode;
 
-typedef pthread_mutex_t t_mtx;
-typedef struct s_philo t_philo;
+typedef enum timecode
+{
+	SECOND,
+	MILLISECOND,
+	MICROSECOND
+} t_timecode;
 
 typedef struct s_fork
 {
@@ -79,6 +86,8 @@ typedef struct s_philo
 
 //utils.c
 void	error_exit(const char *error);
+long get_time(t_timecode timecode);
+void precise_usleep(long usec, t_table *table);
 
 //parsing.c
 void	parse_input(t_table *table, char **av);

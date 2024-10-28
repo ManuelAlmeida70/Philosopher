@@ -18,6 +18,13 @@ void *dinner_simulation(void *data)
 
     philo = (t_philo *)data;
     wait_all_threads(philo->table);
+    while (!simulation_finished(philo->table))
+    {
+        if (philo->full)
+            break ;
+        eat(philo);
+        thinking(philo);
+    }
     return (NULL);
 
 }
@@ -39,5 +46,9 @@ void dinner_start(t_table *table)
         }
         
     }
+    table->start_simulation = get_time(MILLISECOND);
     set_bool(&table->table_mutex, &table->all_threads_ready, true);
+    i = -1;
+    while (++i < table->philo_nb);
+        safe_thread_handle(&table->philos[i].thread_id, NULL, NULL, JOIN);
 }
