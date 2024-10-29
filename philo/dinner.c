@@ -57,6 +57,7 @@ void dinner_start(t_table *table)
     int i;
 
     i = -1;
+    table->start_time = get_time(MILLISECOND);
     if (table->nbr_limit_meals == 0)
         return ;
     else if (table->philo_nb == 0)

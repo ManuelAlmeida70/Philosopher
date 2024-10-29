@@ -32,7 +32,7 @@ void write_status(t_philo_status status, t_philo *philo, bool debug)
 {
     long elapsed;
 
-    elapsed = get_time(MILLISECOND) - philo->table->start_simulation;
+    elapsed = get_time(MILLISECOND) - philo->table->start_time;
     if (philo->full)
         return ;
     safe_mutex_handle(&philo->table->write_mutex, LOCK);

@@ -11,10 +11,11 @@
 /* ************************************************************************** */
 
 #include "philo.h"
-
+/*
 void *monitor_dinner(void *arg)
 {
     t_table *table;
 
     table = (t_table *)data;
 }
+*/

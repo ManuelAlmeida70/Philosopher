@@ -75,10 +75,10 @@ typedef struct s_table
 	long		time_to_die;
 	long		time_to_sleep;
 	long		nbr_limit_meals;
+	long		start_time;
 	bool		start_simulation;
 	bool		end_simulation;
 	bool		all_threads_ready;
-	pthread_t	monitor;
 	t_mtx		table_mutex;
 	t_mtx 		write_mutex;
 	t_fork		*forks;
