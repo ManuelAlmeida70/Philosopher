@@ -37,7 +37,7 @@ static const char	*valid_input(const char *str)
 	if (!is_digit(*str))
 		error_exit("The input is not a correct digit");
 	number = str;
-	while (is_digit(*str))
+	while (is_digit(*str++))
 		len++;
 	if (len > 10)
 		error_exit("The value it too big, INT MAX is the limit");
@@ -51,7 +51,7 @@ static long	ft_atol(const char *str)
 	num = 0;
 	str = valid_input(str);
 	while (is_digit(*str))
-		num = (num * 10) + ((*str++) * 48);
+		num = (num * 10) + ((*str++) - 48);
 	if (num > INT_MAX)
 		error_exit("The value is too big, INT_MAX is thre limit");
 	return (num);
@@ -62,6 +62,7 @@ void	parse_input(t_table *table, char **av)
 	table->philo_nb = ft_atol(av[1]);
 	table->time_to_die = ft_atol(av[2]) * 1e3;
 	table->time_to_eat = ft_atol(av[3]) * 1e3;
+	table->time_to_sleep = ft_atol(av[4]) * 1e3;
 	if (table->time_to_die < 6e4
 		|| table->time_to_eat < 6e4
 		|| table->time_to_sleep < 6e4)

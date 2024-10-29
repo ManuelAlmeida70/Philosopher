@@ -45,7 +45,7 @@ long get_long(t_mtx *mutex, long *value)
     return (re);
 }
 
-bool simulation_fineshed(t_table *table)
+bool simulation_finished(t_table *table)
 {
     return (get_bool(&table->table_mutex, &table->end_simulation));
 }

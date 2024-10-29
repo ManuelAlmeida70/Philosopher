@@ -29,6 +29,7 @@
 # define BLUE "\033[1;35m"
 # define CYAN "\033[1;36m"
 # define WHITE "\033[1;37m"
+# define DEBUG_MODE 1
 
 typedef pthread_mutex_t t_mtx;
 typedef struct s_philo t_philo;
@@ -50,6 +51,16 @@ typedef enum timecode
 	MILLISECOND,
 	MICROSECOND
 } t_timecode;
+
+typedef enum e_status
+{
+	EATING,
+	SLEEPING,
+	THINKING,
+	TAKE_FIRST_FORK,
+	TAKE_SECOND_FORK,
+	DIED
+} t_philo_status;
 
 typedef struct s_fork
 {
@@ -82,6 +93,7 @@ typedef struct s_philo
 	t_fork		*first_fork;
 	t_fork		*second_fork;
 	pthread_t	thread_id;
+	t_mtx		philo_mutex;
 	t_table		*table;
 }	t_philo;
 
@@ -110,8 +122,12 @@ bool simulation_finished(t_table *table);
 
 //synchro_utils.c
 void wait_all_threads(t_table *table);
+
 //init.c
 void	data_init(t_table *table);
 void clean(t_table *table);
+
+//write.c
+void write_status(t_philo_status status, t_philo *philo, bool debug);
 
 #endif

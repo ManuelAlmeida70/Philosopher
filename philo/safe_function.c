@@ -18,7 +18,7 @@ void	*safe_malloc(size_t bytes)
 
 	ret = malloc(bytes);
 	if (ret == NULL)
-		error_exit("Error withr the malloc");
+		error_exit("Error with the malloc");
 	return (ret);
 }
 
